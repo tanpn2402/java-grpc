@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "dev.tanpn.grpc.proto";
+option java_outer_classname = "MessageStreaming";
+option objc_class_prefix = "";
+
+enum OrderStatus {
+  PENDING = 0;
+  FILLED = 1;
+  CANCELLED = 2;
+}
+
+message OrderDetail {
+  string clientID = 1;
+  string orderID = 2;
+  int32 quantity = 3;
+  double price = 4;
+  OrderStatus status = 5;
+  string stockID = 6;
+  string marketID = 7;
+}
