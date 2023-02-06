@@ -24,7 +24,7 @@ option objc_class_prefix = "";
 service MessageStreaming {
 
   // A Bidirectional streaming RPC.
-  rpc messageStreaming (stream MessageDetail) returns (MessageDetail) {}
+  rpc messageStreaming (stream MessageDetail) returns (stream MessageDetail) {}
 }
 
 message MessageDetail {

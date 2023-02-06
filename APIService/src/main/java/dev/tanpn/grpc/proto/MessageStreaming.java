@@ -28,13 +28,13 @@ public final class MessageStreaming {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\023common/common.proto\"o\n\013OrderDetail\022\020\n\010" +
-      "clientID\030\001 \001(\t\022\017\n\007orderID\030\002 \001(\t\022\020\n\010quant" +
-      "ity\030\003 \001(\005\022\r\n\005price\030\004 \001(\001\022\034\n\006status\030\005 \001(\016" +
-      "2\014.OrderStatus*5\n\013OrderStatus\022\013\n\007PENDING" +
-      "\020\000\022\n\n\006FILLED\020\001\022\r\n\tCANCELLED\020\002B-\n\024dev.tan" +
-      "pn.grpc.protoB\020MessageStreamingP\001\242\002\000b\006pr" +
-      "oto3"
+      "\n\023common/common.proto\"\222\001\n\013OrderDetail\022\020\n" +
+      "\010clientID\030\001 \001(\t\022\017\n\007orderID\030\002 \001(\t\022\020\n\010quan" +
+      "tity\030\003 \001(\005\022\r\n\005price\030\004 \001(\001\022\034\n\006status\030\005 \001(" +
+      "\0162\014.OrderStatus\022\017\n\007stockID\030\006 \001(\t\022\020\n\010mark" +
+      "etID\030\007 \001(\t*5\n\013OrderStatus\022\013\n\007PENDING\020\000\022\n" +
+      "\n\006FILLED\020\001\022\r\n\tCANCELLED\020\002B-\n\024dev.tanpn.g" +
+      "rpc.protoB\020MessageStreamingP\001\242\002\000b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -53,7 +53,7 @@ public final class MessageStreaming {
     internal_static_OrderDetail_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_OrderDetail_descriptor,
-        new java.lang.String[] { "ClientID", "OrderID", "Quantity", "Price", "Status", });
+        new java.lang.String[] { "ClientID", "OrderID", "Quantity", "Price", "Status", "StockID", "MarketID", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

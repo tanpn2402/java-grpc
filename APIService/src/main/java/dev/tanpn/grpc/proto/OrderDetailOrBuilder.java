@@ -45,4 +45,24 @@ public interface OrderDetailOrBuilder extends
    * <code>.OrderStatus status = 5;</code>
    */
   dev.tanpn.grpc.proto.OrderStatus getStatus();
+
+  /**
+   * <code>string stockID = 6;</code>
+   */
+  java.lang.String getStockID();
+  /**
+   * <code>string stockID = 6;</code>
+   */
+  com.google.protobuf.ByteString
+      getStockIDBytes();
+
+  /**
+   * <code>string marketID = 7;</code>
+   */
+  java.lang.String getMarketID();
+  /**
+   * <code>string marketID = 7;</code>
+   */
+  com.google.protobuf.ByteString
+      getMarketIDBytes();
 }

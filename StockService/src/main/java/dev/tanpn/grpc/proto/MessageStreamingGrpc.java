@@ -22,7 +22,7 @@ public final class MessageStreamingGrpc {
       fullMethodName = SERVICE_NAME + '/' + "messageStreaming",
       requestType = dev.tanpn.grpc.proto.MessageDetail.class,
       responseType = dev.tanpn.grpc.proto.MessageDetail.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
   public static io.grpc.MethodDescriptor<dev.tanpn.grpc.proto.MessageDetail,
       dev.tanpn.grpc.proto.MessageDetail> getMessageStreamingMethod() {
     io.grpc.MethodDescriptor<dev.tanpn.grpc.proto.MessageDetail, dev.tanpn.grpc.proto.MessageDetail> getMessageStreamingMethod;
@@ -31,7 +31,7 @@ public final class MessageStreamingGrpc {
         if ((getMessageStreamingMethod = MessageStreamingGrpc.getMessageStreamingMethod) == null) {
           MessageStreamingGrpc.getMessageStreamingMethod = getMessageStreamingMethod =
               io.grpc.MethodDescriptor.<dev.tanpn.grpc.proto.MessageDetail, dev.tanpn.grpc.proto.MessageDetail>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "messageStreaming"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -108,7 +108,7 @@ public final class MessageStreamingGrpc {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getMessageStreamingMethod(),
-            io.grpc.stub.ServerCalls.asyncClientStreamingCall(
+            io.grpc.stub.ServerCalls.asyncBidiStreamingCall(
               new MethodHandlers<
                 dev.tanpn.grpc.proto.MessageDetail,
                 dev.tanpn.grpc.proto.MessageDetail>(
@@ -138,7 +138,7 @@ public final class MessageStreamingGrpc {
      */
     public io.grpc.stub.StreamObserver<dev.tanpn.grpc.proto.MessageDetail> messageStreaming(
         io.grpc.stub.StreamObserver<dev.tanpn.grpc.proto.MessageDetail> responseObserver) {
-      return io.grpc.stub.ClientCalls.asyncClientStreamingCall(
+      return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
           getChannel().newCall(getMessageStreamingMethod(), getCallOptions()), responseObserver);
     }
   }

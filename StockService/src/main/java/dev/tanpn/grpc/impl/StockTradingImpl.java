@@ -19,6 +19,7 @@ import dev.tanpn.grpc.proto.OrderDetail;
 import dev.tanpn.grpc.proto.OrderEnquiryRequest;
 import dev.tanpn.grpc.proto.OrderStatus;
 import dev.tanpn.grpc.proto.StockTradingGrpc.StockTradingImplBase;
+import dev.tanpn.grpc.server.observable.OrderObservable;
 import dev.tanpn.repositories.OrderRepository;
 import io.grpc.stub.StreamObserver;
 
@@ -29,10 +30,25 @@ public class StockTradingImpl extends StockTradingImplBase {
     private static final Logger LOGGER = Logger.getLogger(StockTradingImpl.class.getName());
 
     private OrderRepository mvOrderRepository;
+    private OrderObservable mvOrderObservable;
 
     @Autowired
-    public StockTradingImpl(OrderRepository orderRepository) {
+    public StockTradingImpl(OrderRepository orderRepository, OrderObservable orderObservable) {
         this.mvOrderRepository = orderRepository;
+        this.mvOrderObservable = orderObservable;
+    }
+
+    private void notifyOrderUpdate(OrderEntity pOrderEntity) {
+        OrderDetail lvOrderDetail = OrderDetail.newBuilder()
+                .setOrderID(String.valueOf(pOrderEntity.getId()))
+                .setClientID(pOrderEntity.getClientID())
+                .setQuantity(pOrderEntity.getQty())
+                .setPrice(pOrderEntity.getPrice())
+                .setStockID(pOrderEntity.getStockID())
+                .setMarketID(pOrderEntity.getMarketID())
+                .setStatus(OrderStatus.valueOf(pOrderEntity.getStatus()))
+                .build();
+        this.mvOrderObservable.updateOrder(lvOrderDetail);
     }
 
     @Override
@@ -48,10 +64,22 @@ public class StockTradingImpl extends StockTradingImplBase {
         lvOrder.setStatus(OrderStatus.PENDING.toString());
         OrderEntity lvInsertedOrder = mvOrderRepository.save(lvOrder);
 
+        OrderDetail lvOrderDetail = OrderDetail.newBuilder()
+                .setOrderID(String.valueOf(lvInsertedOrder.getId()))
+                .setClientID(request.getClientID())
+                .setQuantity(request.getQuantity())
+                .setPrice(request.getPrice())
+                .setStockID(request.getStockID())
+                .setMarketID(request.getMarketID())
+                .setStatus(OrderStatus.valueOf(lvOrder.getStatus()))
+                .build();
+
         EnterOrderReply lvResponse = EnterOrderReply.newBuilder()
                 .setSuccess(true)
-                .setOrderDetail(OrderDetail.newBuilder().setOrderID(String.valueOf(lvInsertedOrder.getId())).build())
+                .setOrderDetail(lvOrderDetail)
                 .build();
+
+        notifyOrderUpdate(lvOrder);
         responseObserver.onNext(lvResponse);
         responseObserver.onCompleted();
     }
@@ -92,6 +120,8 @@ public class StockTradingImpl extends StockTradingImplBase {
                                     .setMessage("SUCCESS")
                                     .setOrderDetail(order)
                                     .build());
+
+                            notifyOrderUpdate(lvOrderDetail);
 
                         } else {
                             lvDetail.add(CancelOrderReplyDetail.newBuilder()
